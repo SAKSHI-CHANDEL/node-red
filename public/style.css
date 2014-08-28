@@ -1036,7 +1036,6 @@ i.spinner {
     background-size: contain
 }
 
-
 /* jQuery Theme overrides */
 .ui-tabs .ui-tabs-panel {
     padding: 0px;
@@ -1074,4 +1073,40 @@ i.spinner {
 .ui-dialog-no-close .ui-dialog-titlebar-close {
     display: none;
 }
+
+/** Forms **/
+
+input,select {
+    padding:5px;
+    margin:0;
+    vertical-align: middle;
+    line-height: 20px;
+    color: #444;
+    font-size: 14px;
+}
+
+input {
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 10px #ccc;
+    border-color: #aaa;
+}
+select {
+    background: #fff;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+option {
+    padding: 10px;
+}
+
+input[type=checkbox] {
+    margin: 8px;
+}
+
+
+/***********/
 
