@@ -703,27 +703,31 @@ button.input-append-right {
 table.node-info {
     margin: 5px;
     width: 97%;
+    border-spacing: 0px;
+    border-collapse: collapse;
 }
 table.node-info tr {
     border: 1px solid #ddd;
+}
+table.node-info td {
+    padding: 3px;
+    margin: 0;
 }
 table.node-info tr.blank {
     border: none;
 }
 table.node-info tr.blank td {
     padding-top: 8px;
-    border: none;
     font-weight: bold;
     padding-left: 0px;
 }
-table.node-info td:first-child{
+table.node-info tr:not(.blank) td:first-child {
     color: #000;
     vertical-align: top;
-    width: 90px;
     padding: 3px;
     border-right: 1px solid #ddd;
 }
-table.node-info td:last-child{
+table.node-info td:last-child {
     padding-left: 5px;
     color: #666;
 }
