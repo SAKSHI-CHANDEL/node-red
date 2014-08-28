@@ -920,7 +920,8 @@ ul.red-ui-tabs li {
 }
 
 ul.red-ui-tabs li a.red-ui-tab-label {
-    display: block; 
+    text-decoration: none;
+    display: block;
     padding: 3px 16px;
     color: #666;
 }
