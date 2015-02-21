@@ -14,6 +14,8 @@
  * limitations under the License.
  **/
 
+var path = require("path");
+ 
 module.exports = function(grunt) {
     
     // Project configuration.
@@ -84,16 +86,51 @@ module.exports = function(grunt) {
             options: {
                 separator: ";",
             },
-            dist: {
-              src: ["public/red/main.js","public/red/settings.js","public/red/user.js","public/red/comms.js","public/red/ui/state.js","public/red/nodes.js","public/red/history.js","public/red/validators.js","public/red/ui/menu.js","public/red/ui/keyboard.js","public/red/ui/tabs.js","public/red/ui/view.js","public/red/ui/sidebar.js","public/red/ui/palette.js","public/red/ui/tab-info.js","public/red/ui/tab-config.js","public/red/ui/editor.js","public/red/ui/library.js","public/red/ui/notifications.js","public/red/ui/touch/radialMenu.js"],
+            build: {
+              src: ["src/editor/js/main.js","src/editor/js/settings.js","src/editor/js/user.js","src/editor/js/comms.js","src/editor/js/ui/state.js","src/editor/js/nodes.js","src/editor/js/history.js","src/editor/js/validators.js","src/editor/js/ui/menu.js","src/editor/js/ui/keyboard.js","src/editor/js/ui/tabs.js","src/editor/js/ui/view.js","src/editor/js/ui/sidebar.js","src/editor/js/ui/palette.js","src/editor/js/ui/tab-info.js","src/editor/js/ui/tab-config.js","src/editor/js/ui/editor.js","src/editor/js/ui/library.js","src/editor/js/ui/notifications.js","src/editor/js/ui/touch/radialMenu.js"],
               dest: "public/red/red.js"
             }
         },
         uglify: {
-            dist: {
+            build: {
                 files: {
                     'public/red/red.min.js': 'public/red/red.js'
                 }
+            }
+        },
+        sass: {
+            build: {
+                options: {
+                    outputStyle: 'compressed'
+                },
+                files: [{
+                    dest: 'public/red/style.min.css',
+                    src: 'src/editor/sass/style.scss'
+                }]
+            }
+        },
+        clean: {
+            build: {
+                src: [
+                    "public/red/red.js",
+                    "public/red/red.min.js",
+                    "public/red/style.min.css"
+                ]
+            }
+            
+        },
+        watch: {
+            js: {
+                files: [
+                    'src/editor/js/**/*.js'
+                ],
+                tasks: ['concat','uglify']
+            },
+            sass: {
+                files: [
+                    'src/editor/sass/**/*.scss'
+                ],
+                tasks: ['sass']
             }
         }
 
@@ -103,8 +140,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-sass');
     
     grunt.registerTask('default', ['test-core','test-editor','test-nodes']);
+    
+    grunt.registerTask('build', ['clean','concat','uglify','sass']);
     
     grunt.registerTask('test-core', ['jshint:core','simplemocha:core']);
     grunt.registerTask('test-editor', ['jshint:editor']);

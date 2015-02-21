@@ -16,9 +16,9 @@
 var RED = (function() {
 
     var deploymentTypes = {
-        "full":{img:"images/deploy-full-o.png"},
-        "nodes":{img:"images/deploy-nodes-o.png"},
-        "flows":{img:"images/deploy-flows-o.png"}
+        "full": {img:"red/images/deploy-full-o.png"},
+        "nodes":{img:"red/images/deploy-nodes-o.png"},
+        "flows":{img:"red/images/deploy-flows-o.png"}
     }
     var deploymentType = "full";
     
@@ -304,9 +304,9 @@ var RED = (function() {
         
         RED.menu.init({id:"btn-deploy-options",
             options: [
-                {id:"btn-deploy-full",toggle:"deploy-type",icon:"images/deploy-full.png",label:"Full",sublabel:"Deploys everything in the workspace",onselect:function(s) { if(s){changeDeploymentType("full")}}},
-                {id:"btn-deploy-flow",toggle:"deploy-type",icon:"images/deploy-flows.png",label:"Modified Flows",sublabel:"Only deploys flows that contain changed nodes", onselect:function(s) {if(s){changeDeploymentType("flows")}}},
-                {id:"btn-deploy-node",toggle:"deploy-type",icon:"images/deploy-nodes.png",label:"Modified Nodes",sublabel:"Only deploys nodes that have changed",onselect:function(s) { if(s){changeDeploymentType("nodes")}}}
+                {id:"btn-deploy-full",toggle:"deploy-type",icon:"red/images/deploy-full.png",label:"Full",sublabel:"Deploys everything in the workspace",onselect:function(s) { if(s){changeDeploymentType("full")}}},
+                {id:"btn-deploy-flow",toggle:"deploy-type",icon:"red/images/deploy-flows.png",label:"Modified Flows",sublabel:"Only deploys flows that contain changed nodes", onselect:function(s) {if(s){changeDeploymentType("flows")}}},
+                {id:"btn-deploy-node",toggle:"deploy-type",icon:"red/images/deploy-nodes.png",label:"Modified Nodes",sublabel:"Only deploys nodes that have changed",onselect:function(s) { if(s){changeDeploymentType("nodes")}}}
             ]
         });
         
