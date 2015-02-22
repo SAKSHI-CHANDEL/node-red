@@ -148,8 +148,10 @@ module.exports = function(grunt) {
             /* uses .nodemonignore */
             dev: {
                 script: 'red.js',
-                args:['-v'],
-                ext: 'js,html'
+                options: {
+                    args:['-v'],
+                    ext: 'js,html'
+                }
             }
         },
         
@@ -231,7 +233,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-copy');
     
-    grunt.registerTask('default', ['test-core','test-editor','test-nodes']);
+    grunt.registerTask('default', ['build', 'test-core','test-editor','test-nodes']);
     
     grunt.registerTask('test-core', ['jshint:core','simplemocha:core']);
     grunt.registerTask('test-editor', ['jshint:editor']);

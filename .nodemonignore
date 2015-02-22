@@ -2,5 +2,5 @@
 *.json
 lib/*
 *.backup
-src/*
+editor/*
 public/*
