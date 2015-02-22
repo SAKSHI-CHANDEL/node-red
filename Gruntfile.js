@@ -54,7 +54,7 @@ module.exports = function(grunt) {
                 'red.js',
                 'red/**/*.js',
                 'nodes/**/*.js',
-                'public/red/**/*.js'
+                'src/editor/js/**/*.js'
             ],
             
             core: {
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
             },
             editor: {
                 files: {
-                    src: [ 'public/red/**/*.js' ]
+                    src: [ 'src/editor/js/**/*.js' ]
                 }
             },
             tests: {
