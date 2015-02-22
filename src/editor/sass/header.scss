@@ -1,0 +1,255 @@
+$activeButton: #121212;
+$menuBackground: $activeButton;
+
+$deployButton: #8C101C;
+$deployButtonHover: #6E0A1E;
+$deployButtonActive: #4C0A17;
+
+$deployDisabledButton: #444;
+$deployDisabledButtonHover: #555;
+$deployDisabledButtonActive: #444;
+
+
+.header-logo {
+    float: left;
+    margin-top: 5px;
+    font-size: 30px;
+    line-height: 30px;
+    text-decoration: none;
+
+    @include disable-selection;
+    
+    span {
+        vertical-align: middle;
+        font-size: 16px !important;
+    }
+    
+    img {
+        height: 18px;
+    }
+}
+
+
+#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    padding: 0px 0px 0px 20px;
+    font-size: 14px;
+    color: #C7C7C7;
+    background: #000;
+    box-sizing: border-box;
+    
+    .header-toolbar {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        float: right;
+    }
+
+    .header-toolbar > li {
+        position: relative;
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .header-button {
+        display: inline-block;
+        min-width: 20px;
+        padding: 0px 12px;
+        margin: auto 5px;
+        font-size: 20px;
+        line-height: 40px;
+        color: #C7C7C7;
+        text-decoration: none;
+        text-align: center;
+        vertical-align: middle;
+        border-left: 2px solid #000;
+        border-right: 2px solid #000;
+        
+        &:not(.disabled):hover {
+            border-color: #323232;
+        }
+        
+        &:active,
+        &.active {
+            background: $activeButton;
+        }
+        
+        &:focus {
+            outline: none;
+        }
+    }
+    
+    li.open .header-button {
+        background: $activeButton;
+        border-color: $activeButton;
+    }
+    
+    ul.dropdown-menu {
+        background: $menuBackground;
+        width: 250px !important;
+        margin-top: 0;
+        
+        li {
+            a {
+                padding: 3px 40px;
+                color: #C7C7C7;
+                
+                img {
+                    margin-right: 10px;
+                    padding: 4px;
+                    border: 3px solid rgba(0,0,0,0);
+                }
+            
+                &.active img {
+                    border: 3px solid #777677;
+                }
+            
+                .menu-label-container {
+                    width: 180px;
+                    vertical-align: top;
+                    display: inline-block;
+                    text-indent: 0px;
+                }
+                .menu-label {
+                    font-size: 14px;
+                    display: inline-block;
+                    text-indent: 0px;
+                }
+                .menu-sublabel {
+                    color: #aeaeae;
+                    font-size: 13px;
+                    display: inline-block;
+                    text-indent: 0px;
+                }
+            }
+        
+            &.divider {
+                background: #464646;
+                border-bottom-color: #323232;
+            }
+            &.disabled a {
+                color: #666;
+            }
+        }
+        
+        > li:hover > a,
+        > li:focus > a {
+            background: #323232 !important;
+        }
+        > li.disabled:hover > a,
+        > li.disabled:focus > a {
+            background: none !important;
+        }
+    }
+    
+    /* Deploy menu customisations */
+    #btn-deploy-options-submenu {
+        width: 300px !important;
+        li a {
+            padding: 10px 30px;
+            color: #fff;
+            
+            .menu-label {
+                font-size: 16px;
+                display: inline-block;
+                text-indent: 0px;
+            }
+            > i.fa {
+                display: none !important;
+            }
+        }
+    }
+    
+    /* User menu customisations */
+    #btn-username > .menu-label {
+        font-size: 16px;
+        color: #fff;
+    }
+    
+    .deploy-button-group {
+        display: inline-block;
+        margin: auto 15px;
+        vertical-align: middle;
+        background: #555;
+        clear: both;
+        
+        > a {
+            float: left;
+            line-height: 22px;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            padding: 4px 8px;
+            color: #ccc;
+            margin: 0;
+        }
+        &.open > #btn-deploy + a,
+        &.open > #btn-deploy.disabled + a {
+            background: $activeButton !important;
+        }
+    }
+    
+    #btn-deploy {
+        background: $deployButton;
+        color: #eee !important;
+
+        img {
+            margin-right: 8px;
+        }
+        
+        + a {
+            background: $deployButton;
+            color: #eee;
+            
+            &:hover {
+                background: $deployButtonHover;
+                color: #eee;
+            }
+            &:active {
+                background: $deployButtonActive;
+                color: #ccc;
+            }
+        }
+        
+        &:not(.disabled) {
+            &:hover {
+                background: $deployButtonHover;
+            }
+            &:active {
+                background: $deployButtonActive !important;
+                color: #ccc !important;
+            }
+        }
+        
+        &.disabled {
+            cursor: default;
+            background: $deployDisabledButton;
+            color: #999 !important;
+       
+            + a {
+                background: $deployDisabledButton;
+                color: #ddd;
+
+                &:hover {
+                    background: $deployDisabledButtonHover;
+                    color: #ddd;
+                }
+                &:active {
+                    background: $deployDisabledButtonActive;
+                    color: #ddd;
+                }
+            }
+            img {
+                opacity: 0.3;
+            }
+        }
+
+    }    
+    
+}
+

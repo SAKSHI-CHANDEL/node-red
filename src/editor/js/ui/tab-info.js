@@ -58,7 +58,7 @@ RED.sidebar.info = (function() {
 
     function refresh(node) {
         var table = '<table class="node-info"><tbody>';
-        table += '<tr class="blank"><td colspan="2">Node</td></tr>';
+        table += '<tr class="node-info-property-header"><td colspan="2">Node</td></tr>';
         table += "<tr><td>Type</td><td>&nbsp;"+node.type+"</td></tr>";
         table += "<tr><td>ID</td><td>&nbsp;"+node.id+"</td></tr>";
         
@@ -71,7 +71,7 @@ RED.sidebar.info = (function() {
                 subflowNode = node;
             }
             
-            table += '<tr class="blank"><td colspan="2">Subflow</td></tr>';
+            table += '<tr class="node-info-property-header"><td colspan="2">Subflow</td></tr>';
             
             var userCount = 0;
             var subflowType = "subflow:"+subflowNode.id;
@@ -85,7 +85,7 @@ RED.sidebar.info = (function() {
         }
         
         if (node.type != "subflow" && node.type != "comment") {
-            table += '<tr class="blank"><td colspan="2">Properties</td></tr>';
+            table += '<tr class="node-info-property-header"><td colspan="2">Properties</td></tr>';
             if (node._def) {
                 for (var n in node._def.defaults) {
                     if (node._def.defaults.hasOwnProperty(n)) {

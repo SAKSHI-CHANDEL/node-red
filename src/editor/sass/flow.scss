@@ -14,11 +14,7 @@
    font-size: 14px;
    pointer-events: none;
    -webkit-touch-callout: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
+    @include disable-selection;
 }
 
 .port_label {
@@ -29,11 +25,7 @@
    text-anchor: middle;
    pointer-events: none;
    -webkit-touch-callout: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
+    @include disable-selection;
 }
 
 
@@ -104,12 +96,7 @@
    font-size: 11px;
    pointer-events: none;
    -webkit-touch-callout: none;
-   -webkit-user-select: none;
-   -khtml-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-
+    @include disable-selection;
 }
 .node_invalid {
    stroke: #ff0000;
@@ -184,4 +171,11 @@ g.link_unknown path.link_line {
    stroke: #f00;
    stroke-width: 2;
    stroke-dasharray: 10, 4;
+}
+
+.lasso {
+    stroke-width: 2px;
+    stroke: #ff7f0e;
+    fill: rgba(20,125,255,0.1);
+    stroke-dasharray: 10 5;
 }

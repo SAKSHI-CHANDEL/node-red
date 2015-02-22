@@ -21,6 +21,9 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        paths: {
+            dist: ".dist"
+        },
         simplemocha: {
             options: {
                 globals: ['expect'],
@@ -116,6 +119,11 @@ module.exports = function(grunt) {
                     "public/red/red.min.js",
                     "public/red/style.min.css"
                 ]
+            },
+            dist: {
+                src: [
+                    '<%= paths.dist %>'
+                ]
             }
             
         },
@@ -132,6 +140,56 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['sass']
             }
+        },
+        
+        nodemon: {
+            /* uses .nodemonignore */
+            dev: {
+                script: 'red.js',
+                args:['-v'],
+                ext: 'js,html'
+            }
+        },
+        
+        concurrent: {
+            dev: {
+                tasks: ['nodemon', 'watch'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
+        },
+        
+        copy: {
+            dist: {
+                files: [{
+                    expand: true,
+                    src: [
+                        '*.md',
+                        'LICENSE',
+                        'package.json',
+                        'settings.js',
+                        'red.js',
+                        'lib/.gitignore',
+                        'nodes/*.demo',
+                        'nodes/core/**',
+                        'red/**',
+                        'public/**'
+                    ],
+                    dest: path.resolve('<%= paths.dist %>/node-red-<%= pkg.version %>')
+                }]
+            }
+        },
+        
+        compress: {
+            release: {
+                options: {
+                    archive: '<%= paths.dist %>/node-red-<%= pkg.version %>.zip'
+                },
+                expand: true,
+                cwd: '<%= paths.dist %>/',
+                src: ['node-red-<%= pkg.version %>/**']
+            }
         }
 
     });
@@ -142,14 +200,22 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-nodemon');
+    grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     
     grunt.registerTask('default', ['test-core','test-editor','test-nodes']);
-    
-    grunt.registerTask('build', ['clean','concat','uglify','sass']);
     
     grunt.registerTask('test-core', ['jshint:core','simplemocha:core']);
     grunt.registerTask('test-editor', ['jshint:editor']);
     grunt.registerTask('test-nodes', ['simplemocha:nodes']);
+
+    grunt.registerTask('build', ['clean:build','concat:build','uglify:build','sass:build']);
+    
+    grunt.registerTask('dev', ['build','concurrent:dev']);
+    
+    grunt.registerTask('dist', ['build','clean:dist','copy:dist','compress:release']);
     
 };

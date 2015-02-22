@@ -1,0 +1,130 @@
+body {
+  font: 13px "Helvetica" !important;
+  padding-top: 100px;
+  background: url("images/pw_maze_white.png");
+}
+
+#chart {
+    position: absolute;
+    bottom:0px;
+    top: 30px;
+    left:0px;
+    right:0px;
+    background: #e3e3e3;
+    overflow: auto;
+}
+
+#workspace-toolbar {
+    position: absolute;
+    top: 30px;
+    left:0;
+    right: 20px;
+    display: none;
+    padding: 7px;
+    border-bottom-right-radius: 5px;
+    background: #f3f3f3;
+}
+
+#chart-zoom-controls {
+    padding-top: 3px;
+    text-align: right;
+    float: right;
+}
+
+
+#main-container {
+    position: absolute;
+    top:50px;
+    left:0;
+    bottom: 0;
+    right:0;
+    overflow:hidden;
+}
+#palette {
+    position: absolute;
+    top: 5px;
+    left:10px;
+    bottom: 10px;
+    @include component-border;
+}
+#workspace {
+    position: absolute;
+    margin: 0;
+    top:5px;
+    left:160px;
+    bottom: 10px;
+    right: 330px;
+    overflow: hidden;
+    @include component-border;
+}
+#chart-zoom-controls {
+    position: absolute;
+    bottom:30px; right: 350px;
+}
+
+#sidebar {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    bottom:10px;
+    width: 305px;
+
+    background: #fff;
+    box-sizing: border-box;
+    @include component-border;
+    
+    &.closing {
+        background: #eee;
+        border-color: #900;
+        border-style: dashed;
+    } 
+}
+#sidebar-content {
+    font-size: 1.2em;
+    overflow-y: auto;
+    position: absolute;
+    top: 30px; left: 0px; right: 0; bottom: 1px;
+}
+#sidebar-separator {
+    width: 15px;
+    background: url(images/grip.png) no-repeat 50% 50%;
+    position: absolute;
+    right: 316px;
+    top: 5px;
+    bottom:10px;
+    cursor: col-resize;
+}
+
+.sidebar-closed {
+    > #sidebar { display: none; }
+    > #sidebar-separator { right: 0px !important; }
+    > #workspace { right: 15px !important; }
+    > #chart-zoom-controls { right: 35px !important; }
+}
+
+
+#workspace-tabs {
+    margin-right: 28px;
+}
+#workspace-add-tab {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 29px;
+    width: 28px;
+    border-bottom: 1px solid #999;
+}
+#btn-workspace-add-tab {
+    display: inline-block;
+    width: 100%;
+    background: #e3e3e3;
+    height: 100%;
+    line-height: 30px;
+    text-align: center;
+    color: #000;
+    
+    &:hover {
+        background: #efefef;
+    }
+}
+

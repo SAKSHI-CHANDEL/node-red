@@ -1,0 +1,58 @@
+.node-info {
+    margin: 5px;
+    width: 97%;
+    
+    tr {
+        border: 1px solid #ddd;
+        
+        &.node-info-property-header {
+            border: none;
+            
+            td {
+                padding-top: 8px;
+                border: none;
+                font-weight: bold;
+                padding-left: 0px;
+            }
+        }
+    }
+    td:first-child{
+        color: #000;
+        vertical-align: top;
+        min-width: 90px;
+        white-space:nowrap;
+        padding: 3px;
+        border-right: 1px solid #ddd;
+    }
+    
+    td:last-child{
+        width: 99%;
+        padding-left: 5px;
+        color: #666;
+    }
+}
+
+.node-help {
+    font-size: 16px;
+    h1 {
+        font-weight: normal;
+        font-size: 1.953em;
+        margin: 8px auto;
+    }
+    h2 {
+        font-weight: normal;
+        font-size: 1.563em;
+        margin: 8px auto;
+    }
+    h3,
+    h4,
+    h5 {
+        font-weight: normal;
+        font-size: 1.25em;
+        margin: 8px auto;
+    }
+    
+    
+    
+    
+}

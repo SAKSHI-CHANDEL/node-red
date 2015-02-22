@@ -2,3 +2,5 @@
 *.json
 lib/*
 *.backup
+src/*
+public/*
