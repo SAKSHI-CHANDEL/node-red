@@ -54,7 +54,7 @@ module.exports = function(grunt) {
                 'red.js',
                 'red/**/*.js',
                 'nodes/**/*.js',
-                'src/editor/js/**/*.js'
+                'editor/js/**/*.js'
             ],
             
             core: {
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
             },
             editor: {
                 files: {
-                    src: [ 'src/editor/js/**/*.js' ]
+                    src: [ 'editor/js/**/*.js' ]
                 }
             },
             tests: {
@@ -90,7 +90,7 @@ module.exports = function(grunt) {
                 separator: ";",
             },
             build: {
-              src: ["src/editor/js/main.js","src/editor/js/settings.js","src/editor/js/user.js","src/editor/js/comms.js","src/editor/js/ui/state.js","src/editor/js/nodes.js","src/editor/js/history.js","src/editor/js/validators.js","src/editor/js/ui/menu.js","src/editor/js/ui/keyboard.js","src/editor/js/ui/tabs.js","src/editor/js/ui/view.js","src/editor/js/ui/sidebar.js","src/editor/js/ui/palette.js","src/editor/js/ui/tab-info.js","src/editor/js/ui/tab-config.js","src/editor/js/ui/editor.js","src/editor/js/ui/library.js","src/editor/js/ui/notifications.js","src/editor/js/ui/touch/radialMenu.js"],
+              src: ["editor/js/main.js","editor/js/settings.js","editor/js/user.js","editor/js/comms.js","editor/js/ui/state.js","editor/js/nodes.js","editor/js/history.js","editor/js/validators.js","editor/js/ui/menu.js","editor/js/ui/keyboard.js","editor/js/ui/tabs.js","editor/js/ui/view.js","editor/js/ui/sidebar.js","editor/js/ui/palette.js","editor/js/ui/tab-info.js","editor/js/ui/tab-config.js","editor/js/ui/editor.js","editor/js/ui/library.js","editor/js/ui/notifications.js","editor/js/ui/touch/radialMenu.js"],
               dest: "public/red/red.js"
             }
         },
@@ -108,16 +108,18 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     dest: 'public/red/style.min.css',
-                    src: 'src/editor/sass/style.scss'
+                    src: 'editor/sass/style.scss'
                 }]
             }
         },
         clean: {
             build: {
                 src: [
-                    "public/red/red.js",
-                    "public/red/red.min.js",
-                    "public/red/style.min.css"
+                    "public/red",
+                    "public/index.html",
+                    "public/favicon.ico",
+                    "public/icons",
+                    "public/vendor"
                 ]
             },
             dist: {
@@ -130,13 +132,13 @@ module.exports = function(grunt) {
         watch: {
             js: {
                 files: [
-                    'src/editor/js/**/*.js'
+                    'editor/js/**/*.js'
                 ],
                 tasks: ['concat','uglify']
             },
             sass: {
                 files: [
-                    'src/editor/sass/**/*.scss'
+                    'editor/sass/**/*.scss'
                 ],
                 tasks: ['sass']
             }
@@ -161,6 +163,29 @@ module.exports = function(grunt) {
         },
         
         copy: {
+            build: {
+                files:[{
+                    cwd: 'editor/images',
+                    src: '**',
+                    expand: true,
+                    dest: 'public/red/images/'
+                },{
+                    cwd: 'editor/vendor',
+                    src: '**',
+                    expand: true,
+                    dest: 'public/vendor/'
+                },{
+                    cwd: 'editor/icons',
+                    src: '**',
+                    expand: true,
+                    dest: 'public/icons/'
+                },{
+                    expand: true,
+                    src: ['editor/index.html','editor/favicon.ico'],
+                    dest: 'public/',
+                    flatten: true
+                }]
+            },
             dist: {
                 files: [{
                     expand: true,
@@ -212,7 +237,7 @@ module.exports = function(grunt) {
     grunt.registerTask('test-editor', ['jshint:editor']);
     grunt.registerTask('test-nodes', ['simplemocha:nodes']);
 
-    grunt.registerTask('build', ['clean:build','concat:build','uglify:build','sass:build']);
+    grunt.registerTask('build', ['clean:build','concat:build','uglify:build','sass:build','copy:build']);
     
     grunt.registerTask('dev', ['build','concurrent:dev']);
     

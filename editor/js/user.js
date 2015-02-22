@@ -22,7 +22,7 @@ RED.user = (function() {
         }
         
         var dialog = $('<div id="node-dialog-login" class="hide">'+
-                       '<div style="display: inline-block;width: 250px; vertical-align: top; margin-right: 10px; margin-bottom: 20px;"><img src="node-red-256.png"/></div>'+
+                       '<div style="display: inline-block;width: 250px; vertical-align: top; margin-right: 10px; margin-bottom: 20px;"><img src="red/images/node-red-256.png"/></div>'+
                        '<div style="display: inline-block; width: 250px; vertical-align: bottom; margin-left: 10px; margin-bottom: 20px;">'+
                        '<form id="node-dialog-login-fields" class="form-horizontal" style="margin-bottom: 0px;"></form>'+
                        '</div>'+
