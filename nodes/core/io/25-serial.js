@@ -68,7 +68,7 @@ module.exports = function(RED) {
                 }
                 node.port.write(payload,function(err,res) {
                     if (err) {
-                        node.error(err);
+                        node.error(err,msg);
                     }
                 });
             });
