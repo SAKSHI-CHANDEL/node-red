@@ -59,7 +59,7 @@ console.log("CLEANUP!!!",p);
                 node.activeProcesses[child.pid] = child;
 console.log('SPAWNED',child.pid);
                 child.stdout.on('data', function (data) {
-                    if (node.activeProcesses[child.pid] !== null) {
+                    if (node.activeProcesses.hasOwnProperty(child.pid) && node.activeProcesses[child.pid] !== null) {
                         console.log('[exec] stdout: ' + data,child.pid);
                         if (isUtf8(data)) { msg.payload = data.toString(); }
                         else { msg.payload = data; }
@@ -67,7 +67,7 @@ console.log('SPAWNED',child.pid);
                     }
                 });
                 child.stderr.on('data', function (data) {
-                    if (node.activeProcesses[child.pid] !== null) {
+                    if (node.activeProcesses.hasOwnProperty(child.pid) && node.activeProcesses[child.pid] !== null) {
                         console.log('[exec] stderr: ' + data,child.pid);
                         if (isUtf8(data)) { msg.payload = data.toString(); }
                         else { msg.payload = new Buffer(data); }
@@ -75,7 +75,7 @@ console.log('SPAWNED',child.pid);
                     }
                 });
                 child.on('close', function (code) {
-                    if (node.activeProcesses[child.pid] !== null) {
+                    if (node.activeProcesses.hasOwnProperty(child.pid) && node.activeProcesses[child.pid] !== null) {
     console.log('[exec] result: ' + code,child.pid);
                         delete node.activeProcesses[child.pid];
                         if (child.tout) { clearTimeout(child.tout); }
@@ -88,14 +88,14 @@ console.log('SPAWNED',child.pid);
                     }
                 });
                 child.on('close', function (code,signal) {
-                    if (node.activeProcesses[child.pid] !== null) {
+                    if (node.activeProcesses.hasOwnProperty(child.pid) && node.activeProcesses[child.pid] !== null) {
                         console.log('[exec] exit: ',code,"sig:",signal,child.pid);
                     }
                 });
                 child.on('error', function (code) {
                     if (child.tout) { clearTimeout(child.tout); }
                     delete node.activeProcesses[child.pid];
-                    if (node.activeProcesses[child.pid] !== null) {
+                    if (node.activeProcesses.hasOwnProperty(child.pid) && node.activeProcesses[child.pid] !== null) {
                         node.error(code,RED.util.cloneMessage(msg));
                     }
                 });
