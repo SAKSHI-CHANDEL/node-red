@@ -59,35 +59,45 @@ console.log("CLEANUP!!!",p);
                 node.activeProcesses[child.pid] = child;
 console.log('SPAWNED',child.pid);
                 child.stdout.on('data', function (data) {
-console.log('[exec] stdout: ' + data,child.pid);
-                    if (isUtf8(data)) { msg.payload = data.toString(); }
-                    else { msg.payload = data; }
-                    node.send([RED.util.cloneMessage(msg),null,null]);
+                    if (node.activeProcesses[child.pid] !== null) {
+                        console.log('[exec] stdout: ' + data,child.pid);
+                        if (isUtf8(data)) { msg.payload = data.toString(); }
+                        else { msg.payload = data; }
+                        node.send([RED.util.cloneMessage(msg),null,null]);
+                    }
                 });
                 child.stderr.on('data', function (data) {
-console.log('[exec] stderr: ' + data,child.pid);
-                    if (isUtf8(data)) { msg.payload = data.toString(); }
-                    else { msg.payload = new Buffer(data); }
-                    node.send([null,RED.util.cloneMessage(msg),null]);
+                    if (node.activeProcesses[child.pid] !== null) {
+                        console.log('[exec] stderr: ' + data,child.pid);
+                        if (isUtf8(data)) { msg.payload = data.toString(); }
+                        else { msg.payload = new Buffer(data); }
+                        node.send([null,RED.util.cloneMessage(msg),null]);
+                    }
                 });
                 child.on('close', function (code) {
-console.log('[exec] result: ' + code,child.pid);
-                    delete node.activeProcesses[child.pid];
-                    if (child.tout) { clearTimeout(child.tout); }
-                    msg.payload = code;
-                    if (code === 0) { node.status({}); }
-                    if (code === null) { node.status({fill:"red",shape:"dot",text:"timeout"}); }
-                    else if (code < 0) { node.status({fill:"red",shape:"dot",text:"rc: "+code}); }
-                    else { node.status({fill:"yellow",shape:"dot",text:"rc: "+code}); }
-                    node.send([null,null,RED.util.cloneMessage(msg)]);
+                    if (node.activeProcesses[child.pid] !== null) {
+    console.log('[exec] result: ' + code,child.pid);
+                        delete node.activeProcesses[child.pid];
+                        if (child.tout) { clearTimeout(child.tout); }
+                        msg.payload = code;
+                        if (code === 0) { node.status({}); }
+                        if (code === null) { node.status({fill:"red",shape:"dot",text:"timeout"}); }
+                        else if (code < 0) { node.status({fill:"red",shape:"dot",text:"rc: "+code}); }
+                        else { node.status({fill:"yellow",shape:"dot",text:"rc: "+code}); }
+                        node.send([null,null,RED.util.cloneMessage(msg)]);
+                    }
                 });
                 child.on('close', function (code,signal) {
-console.log('[exec] exit: ',code,"sig:",signal,child.pid);
+                    if (node.activeProcesses[child.pid] !== null) {
+                        console.log('[exec] exit: ',code,"sig:",signal,child.pid);
+                    }
                 });
                 child.on('error', function (code) {
-                    delete node.activeProcesses[child.pid];
                     if (child.tout) { clearTimeout(child.tout); }
-                    node.error(code,RED.util.cloneMessage(msg));
+                    delete node.activeProcesses[child.pid];
+                    if (node.activeProcesses[child.pid] !== null) {
+                        node.error(code,RED.util.cloneMessage(msg));
+                    }
                 });
             }
             else {
@@ -125,7 +135,9 @@ console.log('[exec] exit: ',code,"sig:",signal,child.pid);
                 if (node.activeProcesses.hasOwnProperty(pid)) {
                     if (node.activeProcesses[pid].tout) { clearTimeout(node.activeProcesses[pid].tout); }
                     console.log("KILLLING",pid);
-                    node.activeProcesses[pid].kill();
+                    var process = node.activeProcesses[pid];
+                    node.activeProcesses[pid] = null;
+                    process.kill();
                 }
             }
             node.activeProcesses = {};
