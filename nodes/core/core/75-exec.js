@@ -32,7 +32,7 @@ module.exports = function(RED) {
         var node = this;
 
         var cleanup = function(p) {
-            //console.log("CLEANUP!!!",p);
+console.log("CLEANUP!!!",p);
             node.activeProcesses[p].kill();
             node.status({fill:"red",shape:"dot",text:"timeout"});
             node.error("Exec node timeout");
@@ -58,19 +58,19 @@ module.exports = function(RED) {
                 }
                 node.activeProcesses[child.pid] = child;
                 child.stdout.on('data', function (data) {
-                    //console.log('[exec] stdout: ' + data);
+console.log('[exec] stdout: ' + data);
                     if (isUtf8(data)) { msg.payload = data.toString(); }
                     else { msg.payload = data; }
                     node.send([RED.util.cloneMessage(msg),null,null]);
                 });
                 child.stderr.on('data', function (data) {
-                    //console.log('[exec] stderr: ' + data);
+console.log('[exec] stderr: ' + data);
                     if (isUtf8(data)) { msg.payload = data.toString(); }
                     else { msg.payload = new Buffer(data); }
                     node.send([null,RED.util.cloneMessage(msg),null]);
                 });
                 child.on('close', function (code) {
-                    //console.log('[exec] result: ' + code);
+console.log('[exec] result: ' + code);
                     delete node.activeProcesses[child.pid];
                     if (child.tout) { clearTimeout(child.tout); }
                     msg.payload = code;
