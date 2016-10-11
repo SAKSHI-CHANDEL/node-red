@@ -53,6 +53,7 @@ console.log("CLEANUP!!!",p);
                 /* istanbul ignore else  */
                 if (RED.settings.verbose) { node.log(cmd+" ["+arg+"]"); }
                 child = spawn(cmd,arg);
+                var unknownCommand = (child.pid === undefined);
                 if (node.timer !== 0) {
                     child.tout = setTimeout(function() { cleanup(child.pid); }, node.timer);
                 }
@@ -75,7 +76,7 @@ console.log('SPAWNED',child.pid);
                     }
                 });
                 child.on('close', function (code) {
-                    if (node.activeProcesses.hasOwnProperty(child.pid) && node.activeProcesses[child.pid] !== null) {
+                    if (unknownCommand || (node.activeProcesses.hasOwnProperty(child.pid) && node.activeProcesses[child.pid] !== null)) {
     console.log('[exec] result: ' + code,child.pid);
                         delete node.activeProcesses[child.pid];
                         if (child.tout) { clearTimeout(child.tout); }
@@ -87,11 +88,11 @@ console.log('SPAWNED',child.pid);
                         node.send([null,null,RED.util.cloneMessage(msg)]);
                     }
                 });
-                child.on('close', function (code,signal) {
-                    if (node.activeProcesses.hasOwnProperty(child.pid) && node.activeProcesses[child.pid] !== null) {
-                        console.log('[exec] exit: ',code,"sig:",signal,child.pid);
-                    }
-                });
+                // child.on('exit', function (code,signal) {
+                //     if (unknownCommand || (node.activeProcesses.hasOwnProperty(child.pid) && node.activeProcesses[child.pid] !== null)) {
+                //         console.log('[exec] exit: ',code,"sig:",signal,child.pid);
+                //     }
+                // });
                 child.on('error', function (code) {
                     if (child.tout) { clearTimeout(child.tout); }
                     delete node.activeProcesses[child.pid];
