@@ -80,6 +80,9 @@ console.log('[exec] result: ' + code);
                     else { node.status({fill:"yellow",shape:"dot",text:"rc: "+code}); }
                     node.send([null,null,RED.util.cloneMessage(msg)]);
                 });
+                child.on('close', function (code) {
+console.log('[exec] exit: ' + code);
+                });
                 child.on('error', function (code) {
                     delete node.activeProcesses[child.pid];
                     if (child.tout) { clearTimeout(child.tout); }
