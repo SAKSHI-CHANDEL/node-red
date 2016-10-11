@@ -70,6 +70,7 @@ describe('exec node', function() {
                         if (received < 2) {
                             return;
                         }
+console.log(messages);
                         try{
                             var msg = messages[0];
                             msg.should.have.property("payload");
@@ -121,6 +122,7 @@ describe('exec node', function() {
                     if (received < 2) {
                         return;
                     }
+console.log(messages);
                     try{
                         var msg = messages[0];
                         msg.should.have.property("payload");
@@ -297,6 +299,7 @@ describe('exec node', function() {
                     if (received < 2) {
                         return;
                     }
+console.log(messages);
                     try{
                         var msg = messages[0];
                         msg.should.have.property("payload");
