@@ -52,6 +52,7 @@ console.log("CLEANUP!!!",p);
                 var cmd = arg.shift();
                 /* istanbul ignore else  */
                 if (RED.settings.verbose) { node.log(cmd+" ["+arg+"]"); }
+console.log("cmd:",cmd+" ["+arg+"]");
                 child = spawn(cmd,arg);
                 var unknownCommand = (child.pid === undefined);
                 if (node.timer !== 0) {
