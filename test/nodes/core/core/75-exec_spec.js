@@ -311,18 +311,22 @@ console.log(messages);
                         should.exist(msg.payload);
                         msg.payload.should.be.a.Number();
                         msg.payload.should.equal(0);
+console.log("CALLING DONE");
                         done();
                     } catch(err) {
+console.log("CALLING DONE ERR");
                         done(err);
                     }
                 };
 
 
                 n2.on("input", function(msg) {
+console.log("n2 input");
                     messages[0] = msg;
                     completeTest();
                 });
                 n4.on("input", function(msg) {
+console.log("n4 input");
                     messages[1] = msg;
                     completeTest();
                 });
